@@ -15,6 +15,7 @@
     "@react-three/fiber": "^8.16.8",
     "animejs": "^3.2.2",
     "cannon-es": "^0.20.0",
+    "framer-motion": "^11.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-three-fiber": "^6.0.13",
