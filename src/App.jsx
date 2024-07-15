@@ -1,11 +1,17 @@
-import { Fragment } from "react";
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import Cat from "./Cat";
 
-function App() {
+const App = () => {
   return (
-    <Fragment>
-      <h1>Hello, world!</h1>
-    </Fragment>
+    <Canvas style={{ height: "100vh", width: "100vw" }}>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[0, 10, 5]} intensity={1} />
+      <Cat />
+      <OrbitControls />
+    </Canvas>
   );
-}
+};
 
 export default App;
