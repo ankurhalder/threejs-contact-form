@@ -3,10 +3,12 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 const Cat = () => {
+  const leftEyeRef = useRef();
+  const rightEyeRef = useRef();
   const leftPupilRef = useRef();
   const rightPupilRef = useRef();
   const cursor = new THREE.Vector2();
-  const maxPupilOffset = 0.05; // Maximum offset for the pupils
+  const raycaster = new THREE.Raycaster();
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -19,46 +21,12 @@ const Cat = () => {
   }, []);
 
   useFrame(({ camera }) => {
-    const vector = new THREE.Vector3(cursor.x, cursor.y, 0.5).unproject(camera);
-    const dir = vector.sub(camera.position).normalize();
-    const distance = -camera.position.z / dir.z;
-    const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+    raycaster.setFromCamera(cursor, camera);
+    const intersectPoint = new THREE.Vector3();
+    raycaster.ray.at(10, intersectPoint);
 
-    const leftEyePos = new THREE.Vector3(-0.3, 1.3, 0.8);
-    const rightEyePos = new THREE.Vector3(0.3, 1.3, 0.8);
-
-    const leftPupilOffset = new THREE.Vector3(
-      THREE.MathUtils.clamp(
-        (pos.x - leftEyePos.x) * 0.1,
-        -maxPupilOffset,
-        maxPupilOffset
-      ),
-      THREE.MathUtils.clamp(
-        (pos.y - leftEyePos.y) * 0.1,
-        -maxPupilOffset,
-        maxPupilOffset
-      ),
-      0.1 // Slightly in front of the eye
-    );
-
-    const rightPupilOffset = new THREE.Vector3(
-      THREE.MathUtils.clamp(
-        (pos.x - rightEyePos.x) * 0.1,
-        -maxPupilOffset,
-        maxPupilOffset
-      ),
-      THREE.MathUtils.clamp(
-        (pos.y - rightEyePos.y) * 0.1,
-        -maxPupilOffset,
-        maxPupilOffset
-      ),
-      0.1 // Slightly in front of the eye
-    );
-
-    leftPupilRef.current.position.copy(leftEyePos.clone().add(leftPupilOffset));
-    rightPupilRef.current.position.copy(
-      rightEyePos.clone().add(rightPupilOffset)
-    );
+    leftPupilRef.current.lookAt(intersectPoint);
+    rightPupilRef.current.lookAt(intersectPoint);
   });
 
   return (
@@ -69,27 +37,29 @@ const Cat = () => {
         <meshStandardMaterial color="orange" />
       </mesh>
       {/* Left Eye */}
-      <group position={[-0.3, 1.3, 0.8]}>
+      <group ref={leftEyeRef} position={[-0.3, 1.3, 0.8]}>
         <mesh>
           <sphereGeometry args={[0.15, 32, 32]} />
           <meshStandardMaterial color="white" />
-        </mesh>
-        <mesh ref={leftPupilRef} position={[0, 0, 0.1]}>
-          <sphereGeometry args={[0.05, 32, 32]} />
-          <meshStandardMaterial color="black" />
         </mesh>
       </group>
       {/* Right Eye */}
-      <group position={[0.3, 1.3, 0.8]}>
+      <group ref={rightEyeRef} position={[0.3, 1.3, 0.8]}>
         <mesh>
           <sphereGeometry args={[0.15, 32, 32]} />
           <meshStandardMaterial color="white" />
         </mesh>
-        <mesh ref={rightPupilRef} position={[0, 0, 0.1]}>
-          <sphereGeometry args={[0.05, 32, 32]} />
-          <meshStandardMaterial color="black" />
-        </mesh>
       </group>
+      {/* Left Pupil */}
+      <mesh ref={leftPupilRef} position={[-0.3, 1.3, 0.91]}>
+        <sphereGeometry args={[0.05, 32, 32]} />
+        <meshStandardMaterial color="black" />
+      </mesh>
+      {/* Right Pupil */}
+      <mesh ref={rightPupilRef} position={[0.3, 1.3, 0.91]}>
+        <sphereGeometry args={[0.05, 32, 32]} />
+        <meshStandardMaterial color="black" />
+      </mesh>
     </group>
   );
 };
