@@ -34,7 +34,7 @@ const Cat = () => {
       {/* Cat's Head */}
       <mesh position={[0, 1, 0]}>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color="orange" />
+        <meshStandardMaterial color="orange" roughness={0.6} metalness={0.1} />
       </mesh>
       {/* Left Eye */}
       <group ref={leftEyeRef} position={[-0.3, 1.3, 0.8]}>
@@ -59,6 +59,11 @@ const Cat = () => {
       <mesh ref={rightPupilRef} position={[0.3, 1.3, 0.91]}>
         <sphereGeometry args={[0.05, 32, 32]} />
         <meshStandardMaterial color="black" />
+      </mesh>
+      {/* Tail */}
+      <mesh position={[0, 0.5, -1]}>
+        <cylinderGeometry args={[0.05, 0.1, 1, 16]} />
+        <meshStandardMaterial color="orange" roughness={0.6} metalness={0.1} />
       </mesh>
     </group>
   );
