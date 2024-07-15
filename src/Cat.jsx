@@ -7,6 +7,7 @@ const Cat = () => {
   const rightEyeRef = useRef();
   const leftPupilRef = useRef();
   const rightPupilRef = useRef();
+  const mouthRef = useRef();
   const cursor = new THREE.Vector2();
   const raycaster = new THREE.Raycaster();
 
@@ -35,6 +36,11 @@ const Cat = () => {
       <mesh position={[0, 1, 0]}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial color="orange" roughness={0.6} metalness={0.1} />
+      </mesh>
+      {/* Mouth */}
+      <mesh ref={mouthRef} position={[0, 0.7, 0.9]}>
+        <boxGeometry args={[0.2, 0.05, 0.1]} />
+        <meshStandardMaterial color="black" />
       </mesh>
       {/* Left Eye */}
       <group ref={leftEyeRef} position={[-0.3, 1.3, 0.8]}>
