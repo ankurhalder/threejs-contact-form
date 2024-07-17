@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 const AnkurHalderScene = () => {
   let camera, scene, renderer;
-  let world, walter;
+  let world, ankur;
   let hemiLight, dirLight, backLight, isUp;
 
   const container = {
@@ -28,7 +28,7 @@ const AnkurHalderScene = () => {
   useEffect(() => {
     init();
     addLights();
-    createWalter();
+    createAnkur();
     loop();
 
     window.addEventListener("resize", onWindowResize);
@@ -76,7 +76,7 @@ const AnkurHalderScene = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
 
-    world = document.getElementById("breakingbad");
+    world = document.getElementById("mybody");
     if (world) {
       world.appendChild(renderer.domElement);
     }
@@ -143,18 +143,18 @@ const AnkurHalderScene = () => {
     scene.add(backLight);
   };
 
-  const createWalter = () => {
-    walter = new Walter();
-    scene.add(walter.threegroup);
+  const createAnkur = () => {
+    ankur = new Ankur();
+    scene.add(ankur.threegroup);
   };
 
   const loop = () => {
     renderer.render(scene, camera);
-    if (walter) walter.update();
+    if (ankur) ankur.update();
     requestAnimationFrame(loop);
   };
 
-  class Walter {
+  class Ankur {
     constructor() {
       this.threegroup = new THREE.Group();
 
@@ -391,7 +391,7 @@ const AnkurHalderScene = () => {
     return tv;
   }
 
-  return <div id="breakingbad" style={{ width: "100%", height: "100vh" }} />;
+  return <div id="mybody" style={{ width: "100%", height: "100vh" }} />;
 };
 
 export default AnkurHalderScene;
