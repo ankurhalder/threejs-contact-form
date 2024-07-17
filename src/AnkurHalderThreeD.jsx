@@ -1,7 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import * as THREE from "three";
+import { Shape, ExtrudeGeometry, Mesh } from "three";
 
+// Function to create an oval shape
+function createOvalShape(width, height) {
+  const shape = new Shape();
+  const x = -width / 2;
+  const y = -height / 2;
+  shape.moveTo(x, y + height / 2);
+  shape.ellipse(x + width / 2, y, width / 2, height / 2, 0, Math.PI * 2, false);
+  return shape;
+}
 const AnkurHalderScene = () => {
   let camera, scene, renderer;
   let world, ankur;
@@ -153,7 +163,11 @@ const AnkurHalderScene = () => {
     if (ankur) ankur.update();
     requestAnimationFrame(loop);
   };
-
+  const ovalShape = createOvalShape(120, 78);
+  const extrudeSettings = {
+    depth: 10,
+    bevelEnabled: false,
+  };
   class Ankur {
     constructor() {
       this.threegroup = new THREE.Group();
@@ -167,7 +181,10 @@ const AnkurHalderScene = () => {
         color: "white",
         shading: THREE.FlatShading,
       });
-
+      this.retinaMat = new THREE.MeshLambertMaterial({
+        color: "#333",
+        shading: THREE.FlatShading,
+      });
       this.bearMat = new THREE.MeshLambertMaterial({
         color: "#bb7344",
         shading: THREE.FlatShading,
@@ -179,16 +196,22 @@ const AnkurHalderScene = () => {
       this.head.position.y = 160;
       this.head.position.z = 400;
 
-      const glass = new THREE.BoxGeometry(120, 78, 10);
-      this.glassLeft = new THREE.Mesh(glass, this.eyeMat);
-      this.glassLeft.position.x = -80;
-      this.glassLeft.position.y = 4;
+      // Create left glass
+      const glassLeftGeometry = new ExtrudeGeometry(ovalShape, extrudeSettings);
+      this.glassLeft = new Mesh(glassLeftGeometry, this.eyeMat);
+      this.glassLeft.position.x = -15;
+      this.glassLeft.position.y = 45;
       this.glassLeft.position.z = 160;
       this.head.add(this.glassLeft);
 
-      this.glassRight = new THREE.Mesh(glass, this.eyeMat);
-      this.glassRight.position.x = 80;
-      this.glassRight.position.y = 4;
+      // Create right glass
+      const glassRightGeometry = new ExtrudeGeometry(
+        ovalShape,
+        extrudeSettings
+      );
+      this.glassRight = new Mesh(glassRightGeometry, this.eyeMat);
+      this.glassRight.position.x = 135;
+      this.glassRight.position.y = 45;
       this.glassRight.position.z = 160;
       this.head.add(this.glassRight);
 
@@ -200,13 +223,13 @@ const AnkurHalderScene = () => {
       this.head.add(this.glassu);
 
       const retina = new THREE.BoxGeometry(25, 25, 5);
-      this.retinaLeft = new THREE.Mesh(retina, this.eyeMat);
+      this.retinaLeft = new THREE.Mesh(retina, this.retinaMat);
       this.retinaLeft.position.x = -80;
       this.retinaLeft.position.y = 5;
       this.retinaLeft.position.z = 168;
       this.head.add(this.retinaLeft);
 
-      this.retinaRight = new THREE.Mesh(retina, this.eyeMat);
+      this.retinaRight = new THREE.Mesh(retina, this.retinaMat);
       this.retinaRight.position.x = 80;
       this.retinaRight.position.y = 5;
       this.retinaRight.position.z = 168;
