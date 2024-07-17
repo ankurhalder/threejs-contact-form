@@ -237,9 +237,10 @@ const App = () => {
   return (
     <div className={`wrapper -${theme}`}>
       <div className="name">
-        M<O3D theme={theme} />
-        VE
+        C<O3D theme={theme} />
+        NTACT
       </div>
+
       <World />
       <p
         className="changeTheme"
@@ -247,14 +248,6 @@ const App = () => {
       >
         Change Theme
       </p>
-      <a
-        href="https://github.com/HosseinShabani"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="social"
-      >
-        Github
-      </a>
     </div>
   );
 };
