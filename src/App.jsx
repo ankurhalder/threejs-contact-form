@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { OrbitControls } from "https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/controls/OrbitControls.js";
 import { gsap } from "gsap";
 import "./App.css";
+
 const World = () => {
   const parent = React.useRef(null);
   const elements = React.useRef({
@@ -21,32 +22,32 @@ const World = () => {
   React.useEffect(() => {
     let { scene, camera, renderer, controls } = elements.current;
 
-    // Initial setup
+    //initial
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0xffffff, 0);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    parent.current.appendChild(renderer.domElement);
+    renderer.setPixelRatio(window.innerWidth / window.innerHeight);
+    parent.current.append(renderer.domElement);
     camera.position.set(0, 0, 500);
     scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
-    // Add controls
+    //add control
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enabled = false;
     controls.minDistance = 700;
     controls.maxDistance = 700;
     controls.maxPolarAngle = Math.PI / 2;
 
-    // Create geometry
-    const geometry = new THREE.DodecahedronGeometry(3, 0);
-    const material = new THREE.MeshPhongMaterial({
+    //create geo
+    var geometry = new THREE.DodecahedronGeometry(3, 0);
+    var material = new THREE.MeshPhongMaterial({
       color: 0xffffff,
       flatShading: true,
     });
 
-    // Add to scene with group
-    const group = new THREE.Group();
-    for (let i = 0; i < 50; i++) {
-      const mesh = new THREE.Mesh(geometry, material);
+    //add to scene with group
+    var group = new THREE.Group();
+    for (var i = 0; i < 50; i++) {
+      var mesh = new THREE.Mesh(geometry, material);
       mesh.position.x = Math.random() * 1000 - 500;
       mesh.position.y = Math.random() * 600 - 300;
       mesh.position.z = Math.random() * 1000 - 200;
@@ -56,19 +57,18 @@ const World = () => {
     }
     scene.add(group);
 
-    // Light
-    const light = new THREE.DirectionalLight(0xffffff);
+    //light
+    var light = new THREE.DirectionalLight(0xffffff);
     light.position.set(1, 1, 1);
     scene.add(light);
-    const light1 = new THREE.DirectionalLight(0x141414);
+    var light1 = new THREE.DirectionalLight(0x141414);
     light1.position.set(-1, -1, -1);
     scene.add(light1);
-    const light2 = new THREE.AmbientLight(0x141414, 0.3);
+    var light2 = new THREE.AmbientLight(0x141414, 0.3);
     scene.add(light2);
 
     renderer.render(scene, camera);
-
-    const animate = () => {
+    var animate = function () {
       group.rotation.x += 0.0002;
       group.rotation.y += 0.0002;
       renderer.render(scene, camera);
@@ -89,7 +89,7 @@ const World = () => {
         y: -z,
         duration: 1,
         ease: "power2.out",
-        onUpdate: () => renderer.render(scene, camera),
+        onUpdate: renderer.render(scene, camera),
       });
     };
 
@@ -100,26 +100,23 @@ const World = () => {
       renderer.render(scene, camera);
     };
 
-    const handleDeviceOrientation = ({ accelerationIncludingGravity }) => {
-      const { x, y } = accelerationIncludingGravity;
+    const handleDeviceOrientation = ({
+      acceleration,
+      accelerationIncludingGravity,
+    }) => {
+      const { x, y } = accelerationIncludingGravity || acceleration;
       gsap.to(group.rotation, {
         x: Math.floor(-y) / 3,
         y: Math.floor(-x) / 3,
         duration: 1,
         ease: "power2.out",
-        onUpdate: () => renderer.render(scene, camera),
+        onUpdate: renderer.render(scene, camera),
       });
     };
 
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("resize", handleWindowResize);
     window.addEventListener("devicemotion", handleDeviceOrientation, true);
-
-    return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("resize", handleWindowResize);
-      window.removeEventListener("devicemotion", handleDeviceOrientation, true);
-    };
   }, []);
 
   return <div className="world" ref={parent} />;
@@ -132,7 +129,7 @@ const O3D = ({ theme }) => {
     scene: new THREE.Scene(),
     camera: new THREE.PerspectiveCamera(
       45,
-      window.innerWidth / window.innerHeight,
+      window.innerWidth / window.innerWidth,
       1,
       10000
     ),
@@ -160,32 +157,31 @@ const O3D = ({ theme }) => {
       return;
     }
 
-    // Initial setup
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    //initial
+    renderer.setSize(window.innerWidth, window.innerWidth);
     renderer.setClearColor(0xffffff, 0);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    parent.current.appendChild(renderer.domElement);
+    renderer.setPixelRatio(window.innerWidth / window.innerWidth);
+    parent.current.append(renderer.domElement);
     camera.position.set(0, 0, 1000);
 
-    // Create mesh
-    const geometry = new THREE.DodecahedronGeometry(350, 0);
-    const material = new THREE.MeshLambertMaterial({
+    //create mesh
+    let geometry = new THREE.DodecahedronGeometry(350, 0);
+    let material = new THREE.MeshLambertMaterial({
       color: colors.meshColor,
     });
     mesh = new THREE.Mesh(geometry, material);
     elements.current.mesh = mesh;
     scene.add(mesh);
 
-    // Light
-    const light = new THREE.AmbientLight(0xfffffa, 0.5);
+    //light
+    let light = new THREE.AmbientLight(0xfffffa, 0.5);
     scene.add(light);
-    const light1 = new THREE.DirectionalLight(0xfffffa, 3);
+    let light1 = new THREE.DirectionalLight(0xfffffa, 3);
     scene.add(light1);
     light1.position.set(400, 200, 0);
 
     renderer.render(scene, camera);
-
-    const animate = () => {
+    const animate = function () {
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
@@ -204,28 +200,26 @@ const O3D = ({ theme }) => {
         y: x,
         duration: 1,
         ease: "power1.out",
-        onUpdate: () => renderer.render(scene, camera),
+        onUpdate: renderer.render(scene, camera),
       });
     };
 
-    const handleDeviceOrientation = ({ accelerationIncludingGravity }) => {
-      const { x, y } = accelerationIncludingGravity;
+    const handleDeviceOrientation = ({
+      acceleration,
+      accelerationIncludingGravity,
+    }) => {
+      const { x, y } = accelerationIncludingGravity || acceleration;
       gsap.to(mesh.rotation, {
         x: Math.floor(-y) / 3,
         y: Math.floor(-x) / 3,
         duration: 1,
         ease: "power1.out",
-        onUpdate: () => renderer.render(scene, camera),
+        onUpdate: renderer.render(scene, camera),
       });
     };
 
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("devicemotion", handleDeviceOrientation, true);
-
-    return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("devicemotion", handleDeviceOrientation, true);
-    };
   }, [theme]);
 
   return <div className="canvasContainer" ref={parent} />;
@@ -237,10 +231,9 @@ const App = () => {
   return (
     <div className={`wrapper -${theme}`}>
       <div className="name">
-        C<O3D theme={theme} />
-        NTACT
+        M<O3D theme={theme} />
+        VE
       </div>
-
       <World />
       <p
         className="changeTheme"
@@ -248,6 +241,13 @@ const App = () => {
       >
         Change Theme
       </p>
+      <a
+        href="https://github.com/HosseinShabani"
+        target="_blank"
+        className="social"
+      >
+        Github
+      </a>
     </div>
   );
 };
