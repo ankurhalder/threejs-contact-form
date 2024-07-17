@@ -1,3 +1,111 @@
-#mybody {
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
   overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  background: #fff;
+}
+.wrapper.-dark {
+  background: #141414;
+}
+.world {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.name {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11rem;
+  color: #141414;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  font-weight: 300;
+}
+.wrapper.-dark .name {
+  color: #fff;
+}
+.canvasContainer {
+  width: 15rem;
+  height: 15rem;
+}
+.canvasContainer canvas {
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent;
+}
+.changeTheme {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-size: 1rem;
+  z-index: 10;
+  border-radius: 2rem;
+  padding: 0.8rem 1.5rem;
+  border: solid 2px #141414;
+  color: #141414;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.wrapper.-dark .changeTheme {
+  color: #fff;
+  border: solid 2px #fff;
+}
+.changeTheme:hover {
+  background: #141414;
+  color: #fff;
+}
+.wrapper.-dark .changeTheme:hover {
+  background: #fff;
+  color: #141414;
+}
+.social {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 1rem;
+  color: #141414;
+  z-index: 10;
+}
+.wrapper.-dark .social {
+  color: #fff;
+}
+
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 90%;
+  }
+}
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 70%;
+  }
+  .canvasContainer {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 40%;
+  }
+  .canvasContainer {
+    width: 11rem;
+    height: 11rem;
+  }
 }
