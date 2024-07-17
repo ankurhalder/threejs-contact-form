@@ -229,18 +229,26 @@ const App = () => {
   const [theme, setTheme] = React.useState("light");
 
   return (
-    <div className={`wrapper -${theme}`}>
-      <div className="name">
-        M<O3D theme={theme} />
-        VE
+    <div className="wrapper-divider">
+      <div className={`wrapper -${theme}`}>
+        <div className="name">
+          <div className="divider">
+            <div className="contact">
+              C<O3D theme={theme} />
+              NTACT
+            </div>
+            <div> ME</div>
+          </div>
+        </div>
+        <World />
+        <p
+          className="changeTheme"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          Change Theme
+        </p>
       </div>
-      <World />
-      <p
-        className="changeTheme"
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      >
-        Change Theme
-      </p>
+      <div></div>
     </div>
   );
 };

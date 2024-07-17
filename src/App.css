@@ -5,8 +5,15 @@ body {
   width: 100%;
   min-height: 100vh;
 }
+.wrapper-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* width: 50vw; */
+}
 .wrapper {
-  width: 100%;
+  width: 50%;
   height: 100vh;
   box-sizing: border-box;
   background: #fff;
@@ -22,10 +29,10 @@ body {
   overflow: hidden;
 }
 .name {
-  flex-direction: row;
+  /* flex-direction: row;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   font-size: 11rem;
   color: #141414;
   position: absolute;
@@ -35,6 +42,18 @@ body {
   transform: translate(-50%, -50%);
   opacity: 0.9;
   font-weight: 300;
+}
+.contact {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center;
+  justify-content: center; */
+}
+.divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .wrapper.-dark .name {
   color: #fff;
