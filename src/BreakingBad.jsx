@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import * as THREE from "three";
 
@@ -116,11 +117,11 @@ const WalterWhiteScene = () => {
     }
   };
 
-  const mouseup = (e) => {
+  const mouseup = () => {
     isUp = false;
   };
 
-  const mousedown = (e) => {
+  const mousedown = () => {
     isUp = true;
   };
 
