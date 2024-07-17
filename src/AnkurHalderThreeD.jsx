@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import * as THREE from "three";
 
-const WalterWhiteScene = () => {
+const AnkurHalderScene = () => {
   let camera, scene, renderer;
   let world, walter;
   let hemiLight, dirLight, backLight, isUp;
@@ -394,4 +394,4 @@ const WalterWhiteScene = () => {
   return <div id="breakingbad" style={{ width: "100%", height: "100vh" }} />;
 };
 
-export default WalterWhiteScene;
+export default AnkurHalderScene;

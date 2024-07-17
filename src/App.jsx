@@ -1,10 +1,10 @@
 import "./App.css";
 import { Fragment } from "react";
-import BreakingBad from "./BreakingBad";
+import AnkurHalderScene from "./AnkurHalderThreeD";
 function App() {
   return (
     <Fragment>
-      <BreakingBad />
+      <AnkurHalderScene />
     </Fragment>
   );
 }
