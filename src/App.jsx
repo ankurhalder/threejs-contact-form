@@ -241,13 +241,6 @@ const App = () => {
       >
         Change Theme
       </p>
-      <a
-        href="https://github.com/HosseinShabani"
-        target="_blank"
-        className="social"
-      >
-        Github
-      </a>
     </div>
   );
 };
