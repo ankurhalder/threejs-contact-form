@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import * as THREE from "three";
-import { Shape, ExtrudeGeometry, Mesh } from "three";
+import { Shape, ExtrudeGeometry, Mesh, SphereGeometry } from "three";
 
 // Function to create an oval shape
 function createOvalShape(width, height) {
@@ -222,14 +222,15 @@ const AnkurHalderScene = () => {
       this.glassu.position.z = 155;
       this.head.add(this.glassu);
 
-      const retina = new THREE.BoxGeometry(25, 25, 5);
-      this.retinaLeft = new THREE.Mesh(retina, this.retinaMat);
+      // Create spherical retina
+      const retinaGeometry = new SphereGeometry(12, 32, 32);
+      this.retinaLeft = new Mesh(retinaGeometry, this.retinaMat);
       this.retinaLeft.position.x = -80;
       this.retinaLeft.position.y = 5;
       this.retinaLeft.position.z = 168;
       this.head.add(this.retinaLeft);
 
-      this.retinaRight = new THREE.Mesh(retina, this.retinaMat);
+      this.retinaRight = new Mesh(retinaGeometry, this.retinaMat);
       this.retinaRight.position.x = 80;
       this.retinaRight.position.y = 5;
       this.retinaRight.position.z = 168;
